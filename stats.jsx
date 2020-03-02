@@ -44,7 +44,6 @@ export const render = ({ output }) => {
     <div style={style}>
       <Wifi output={data.wifi} />
       <Song output={data.song} />
-      <div> Hello </div>
       <Cpu output={data.cpu} />
       <Battery output={data.battery} />
       <Weather output={data.weather} />

@@ -137,7 +137,8 @@ WIFI_SSID=$(networksetup -getairportnetwork en0 | cut -c 24-)
 
 DND=$(defaults -currentHost read com.apple.notificationcenterui doNotDisturb)
 
-WEATHER=`cat /Users/frsr/.cache/weather`
+# Call weather with a crontab to a local file then read. This means you can reliably get up to date weather for several uses from one api
+WEATHER=`cat ${HOME}/.cache/weather`
 
 WEATHER_ICON=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.icon')
 
@@ -172,7 +173,7 @@ echo $(cat <<-EOF
 		"mbout": "$mbout"
 	},
     "dnd": $DND,
-    "song": $SONG,
+    "song": "$SONG",
     "weather": {
         "icon": "$WEATHER_ICON",
         "summary": "$WEATHER_SUMM",
