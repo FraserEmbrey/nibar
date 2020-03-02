@@ -1,9 +1,11 @@
 # nibar
 
-Simple [Übersicht](https://github.com/felixhageloh/uebersicht) widget status bar with [yabai](https://github.com/koekeishiya/yabai) support.
+Simple [Übersicht](https://github.com/felixhageloh/uebersicht) widget status bar with ↗ [yabai](https://github.com/koekeishiya/yabai) support.
 
-Originally forked from https://github.com/ajdnik/powerbar. I made it work with yabai and tweaked the aesthetics to match my preference.
-Then forked from [kkga/nibar](https://github.com/kkga/nibar)
+Originally forked from  ↗ [ajdnik/powerbar](https://github.com/ajdnik/powerbar). To ↗ [kkga/nibar](https://github.com/kkga/nibar), made to work with yabai and aesthetically tweaked.
+I have added a weather widget that uses the darksky API data, and removed the network stats as I don't care for them.
+
+Planning to tweak the aesthetics to fit my system better.
 
 ## Screenshot
 
@@ -41,4 +43,8 @@ yabai -m signal --add event=space_changed \
 
 ## TODO
 
-- [ ] add support for `visible` (not `focused`) workspaces
+- [x] add weather widget
+- [ ] update weather to work with iTunes, music or spotify
+- [ ] update styling to fit system aesthetics
+- [ ] add click control for space changes
+

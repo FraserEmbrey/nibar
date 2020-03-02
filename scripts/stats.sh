@@ -146,6 +146,7 @@ WEATHER_SUMM=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.summary')
 
 WEATHER_TEMP=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.temperature')
 
+# only gets song from Apple music app (10.15 Catalina +)
 SONG=$(osascript -e 'tell application "Music" to name of current track as string')
 
 echo $(cat <<-EOF
