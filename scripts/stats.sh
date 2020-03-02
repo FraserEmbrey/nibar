@@ -137,8 +137,9 @@ WIFI_SSID=$(networksetup -getairportnetwork en0 | cut -c 24-)
 
 DND=$(defaults -currentHost read com.apple.notificationcenterui doNotDisturb)
 
-# WEATHER=$(curl -s 'https://api.darksky.net/forecast/4fdf9dbf130d8c930c46b7a0c81c34d5/51.005093,-0.42695?lang=en&units=uk2&exclude=minutely,hourly,daily,alerts,flags')
-WEATHER=`cat /Users/frsr/.cache/weather`
+Call weather with a crontab to a local file then read. This means you can reliably get up to date weather for several uses from one api
+
+WEATHER=`cat ${HOME}/.cache/weather`
 
 WEATHER_ICON=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.icon')
 
