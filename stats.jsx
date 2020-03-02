@@ -1,9 +1,10 @@
+import Weather from "./lib/weather.jsx";
 import DateTime from "./lib/DateTime.jsx";
 import Battery from "./lib/Battery.jsx";
 import Cpu from "./lib/Cpu.jsx";
 import Wifi from "./lib/Wifi.jsx";
 import Dnd from "./lib/Dnd.jsx";
-import Netstats from "./lib/Netstats.jsx";
+// import Netstats from "./lib/Netstats.jsx";
 import Error from "./lib/Error.jsx";
 import parse from "./lib/parse.jsx";
 import styles from "./lib/styles.jsx";
@@ -37,12 +38,13 @@ export const render = ({ output }) => {
       </div>
     );
   }
+      // <Netstats output={data.netstats} />
   return (
     <div style={style}>
-      <Netstats output={data.netstats} />
       <Wifi output={data.wifi} />
       <Cpu output={data.cpu} />
       <Battery output={data.battery} />
+      <Weather output={data.weather} />
       <DateTime output={data.datetime} />
       <Dnd output={data.dnd} />
     </div>

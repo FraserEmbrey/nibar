@@ -1,47 +1,47 @@
 #!/bin/bash
 
-# ETHERNET: get the current number of bytes in and bytes out
-myvar1=`netstat -ibn | grep -e "en0" -m 1 | awk '{print $7}'` #  bytes in
-myvar3=`netstat -ibn | grep -e "en0" -m 1 | awk '{print $10}'` # bytes out
+## ETHERNET: get the current number of bytes in and bytes out
+#myvar1=`netstat -ibn | grep -e "en0" -m 1 | awk '{print $7}'` #  bytes in
+#myvar3=`netstat -ibn | grep -e "en0" -m 1 | awk '{print $10}'` # bytes out
 
-# AIRPORT: get the current number of bytes in and bytes out
-apmyvar1=`netstat -ibn | grep -e "en1" -m 1 | awk '{print $7}'` #  bytes in
-apmyvar3=`netstat -ibn | grep -e "en1" -m 1 | awk '{print $10}'` # bytes out
+## AIRPORT: get the current number of bytes in and bytes out
+#apmyvar1=`netstat -ibn | grep -e "en1" -m 1 | awk '{print $7}'` #  bytes in
+#apmyvar3=`netstat -ibn | grep -e "en1" -m 1 | awk '{print $10}'` # bytes out
 
-#wait one second
-sleep 1
+##wait one second
+#sleep 1
 
-# ETHERNET: get the number of bytes in and out one second later
-myvar2=`netstat -ibn | grep -e "en0" -m 1 | awk '{print $7}'` # bytes in again
-myvar4=`netstat -ibn | grep -e "en0" -m 1 | awk '{print $10}'` # bytes out again
+## ETHERNET: get the number of bytes in and out one second later
+#myvar2=`netstat -ibn | grep -e "en0" -m 1 | awk '{print $7}'` # bytes in again
+#myvar4=`netstat -ibn | grep -e "en0" -m 1 | awk '{print $10}'` # bytes out again
 
-# AIRPORT: get the number of bytes in and out one second later
-apmyvar2=`netstat -ibn | grep -e "en1" -m 1 | awk '{print $7}'` # bytes in again
-apmyvar4=`netstat -ibn | grep -e "en1" -m 1 | awk '{print $10}'` # bytes out again
+## AIRPORT: get the number of bytes in and out one second later
+#apmyvar2=`netstat -ibn | grep -e "en1" -m 1 | awk '{print $7}'` # bytes in again
+#apmyvar4=`netstat -ibn | grep -e "en1" -m 1 | awk '{print $10}'` # bytes out again
 
-# ETHERNET: find the difference between bytes in and out during that one second
-subin=$(($myvar2 - $myvar1))
-subout=$(($myvar4 - $myvar3))
+## ETHERNET: find the difference between bytes in and out during that one second
+#subin=$(($myvar2 - $myvar1))
+#subout=$(($myvar4 - $myvar3))
 
-# AIRPORT: find the difference between bytes in and out during that one second
-apsubin=$(($apmyvar2 - $apmyvar1))
-apsubout=$(($apmyvar4 - $apmyvar3))
+## AIRPORT: find the difference between bytes in and out during that one second
+#apsubin=$(($apmyvar2 - $apmyvar1))
+#apsubout=$(($apmyvar4 - $apmyvar3))
 
-# ETHERNET: convert bytes to kilobytes
-kbin=`echo "scale=2; $subin/1024;" | bc`
-kbout=`echo "scale=2; $subout/1024;" | bc`
+## ETHERNET: convert bytes to kilobytes
+#kbin=`echo "scale=2; $subin/1024;" | bc`
+#kbout=`echo "scale=2; $subout/1024;" | bc`
 
-# AIRPORT: convert bytes to kilobytes
-apkbin=`echo "scale=2; $apsubin/1024;" | bc`
-apkbout=`echo "scale=2; $apsubout/1024;" | bc`
+## AIRPORT: convert bytes to kilobytes
+#apkbin=`echo "scale=2; $apsubin/1024;" | bc`
+#apkbout=`echo "scale=2; $apsubout/1024;" | bc`
 
-# convert kilobytes to megabytes
-mbin=`echo "scale=2; $kbin/1024;" | bc`
-mbout=`echo "scale=2; $kbout/1024;" | bc`
+## convert kilobytes to megabytes
+#mbin=`echo "scale=2; $kbin/1024;" | bc`
+#mbout=`echo "scale=2; $kbout/1024;" | bc`
 
-#AIRPORT: get IP address
-etherip=`ifconfig en0 | grep -E "(inet |status:)" | head -n 1 | awk '{ print $2}'`
-airip=`ifconfig en1 | grep -E "(inet |status:)" | head -n 1 | awk '{ print $2}'`
+##AIRPORT: get IP address
+#etherip=`ifconfig en0 | grep -E "(inet |status:)" | head -n 1 | awk '{ print $2}'`
+#airip=`ifconfig en1 | grep -E "(inet |status:)" | head -n 1 | awk '{ print $2}'`
 
 # print the results
 # echo "Ethernet speeds:"
@@ -137,6 +137,15 @@ WIFI_SSID=$(networksetup -getairportnetwork en0 | cut -c 24-)
 
 DND=$(defaults -currentHost read com.apple.notificationcenterui doNotDisturb)
 
+# WEATHER=$(curl -s 'https://api.darksky.net/forecast/4fdf9dbf130d8c930c46b7a0c81c34d5/51.005093,-0.42695?lang=en&units=uk2&exclude=minutely,hourly,daily,alerts,flags')
+WEATHER=`cat /Users/frsr/.cache/weather`
+
+WEATHER_ICON=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.icon')
+
+WEATHER_SUMM=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.summary')
+
+WEATHER_TEMP=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.temperature')
+
 echo $(cat <<-EOF
 {
     "datetime": {
@@ -161,7 +170,12 @@ echo $(cat <<-EOF
 		"mbin": "$mbin",
 		"mbout": "$mbout"
 	},
-    "dnd": $DND
+    "dnd": $DND,
+    "weather": {
+        "icon": "$WEATHER_ICON",
+        "summary": "$WEATHER_SUMM",
+        "temperature": "$WEATHER_TEMP"
+    }
 }
 EOF
 )
