@@ -137,7 +137,6 @@ WIFI_SSID=$(networksetup -getairportnetwork en0 | cut -c 24-)
 
 DND=$(defaults -currentHost read com.apple.notificationcenterui doNotDisturb)
 
-# WEATHER=$(curl -s 'https://api.darksky.net/forecast/4fdf9dbf130d8c930c46b7a0c81c34d5/51.005093,-0.42695?lang=en&units=uk2&exclude=minutely,hourly,daily,alerts,flags')
 WEATHER=`cat /Users/frsr/.cache/weather`
 
 WEATHER_ICON=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.icon')
@@ -145,6 +144,8 @@ WEATHER_ICON=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.icon')
 WEATHER_SUMM=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.summary')
 
 WEATHER_TEMP=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.temperature')
+
+SONG=$(osascript -e 'tell application "Music" to name of current track as string')
 
 echo $(cat <<-EOF
 {
@@ -171,6 +172,7 @@ echo $(cat <<-EOF
 		"mbout": "$mbout"
 	},
     "dnd": $DND,
+    "song": $SONG,
     "weather": {
         "icon": "$WEATHER_ICON",
         "summary": "$WEATHER_SUMM",
