@@ -4,7 +4,9 @@ const render = ({ output }) => {
   if (output.song == "Nothing playing") return null;
   return (
     <div>
-      <span>{output.stateicon} {output.song}</span>
+      <span>{ output.playing
+          ? {􀑪} : {􀊅}
+      } {output}</span>
     </div>
   );
 };

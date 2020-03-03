@@ -2,6 +2,7 @@ import styles from "./lib/styles.jsx";
 
 const style = {
   background: styles.colors.bg,
+  WebkitBackdropFilter: "blur(10px)",
   cursor: "default",
   userSelect: "none",
   zIndex: "-1",
