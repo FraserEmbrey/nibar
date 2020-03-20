@@ -137,8 +137,8 @@ WIFI_SSID=$(networksetup -getairportnetwork en0 | cut -c 24-)
 
 DND=$(defaults -currentHost read com.apple.notificationcenterui doNotDisturb)
 
-# Call weather with a crontab to a local file then read. This means you can reliably get up to date weather for several uses from one api
-WEATHER=`cat ${HOME}/.cache/weather`
+# Call weather with launchd or crontab to a local file then read. This means you can reliably get up to date weather for several uses from one api
+WEATHER=`cat ${HOME}/.local/share/weather`
 
 WEATHER_ICON=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.icon')
 
