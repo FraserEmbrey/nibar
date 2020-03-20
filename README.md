@@ -34,17 +34,17 @@ To refresh them, you can add these lines utilizing [yabai's signals](https://git
 ```sh
 # refresh primary display workspaces
 yabai -m signal --add event=space_changed \
-    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-primary-jsx\"'"
 
 # refresh secondary display workspaces
 yabai -m signal --add event=space_changed \
-    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
+    action="osascript -e 'tell application \"Übersicht\" to refresh widget id \"nibar-spaces-secondary-jsx\"'"
 ```
 
 ## TODO
 
 - [x] add weather widget
-- [ ] update weather to work with iTunes, music or spotify
-- [ ] update styling to fit system aesthetics
+- [ ] update music to work with iTunes or Spotify rather than just 'Music'
+- [ ] update styling to my preferences
 - [ ] add click control for space changes
 
