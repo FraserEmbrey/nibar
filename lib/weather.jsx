@@ -3,7 +3,7 @@ export const refreshFrequency = 300000;
 export const render = ({ output }) => {
     let icon = output.icon
     let summary = output.summary
-    let temp = output.temperature
+    let temp = Math.round(output.temperature)
     return (
     <div>
       <div>

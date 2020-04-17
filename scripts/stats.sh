@@ -115,6 +115,12 @@ if ! [ -x "$(command -v networksetup)" ]; then
   exit 1
 fi
 
+# Check if pgrep exists
+if ! [ -x "$(command -v pgrep)" ]; then
+  echo "{\"error\":\"pgrep binary not found\"}"
+  exit 1
+fi
+
 export LC_TIME="en_US.UTF-8"
 TIME=$(date +"%H:%M")
 DATE=$(date +"%a %d/%m")
@@ -146,25 +152,30 @@ WEATHER_SUMM=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.summary')
 
 WEATHER_TEMP=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.temperature')
 
-# only gets song from Apple music app (10.15 Catalina +)
-SONG=$(osascript -e 'try
-	tell application "Music" to name of current track as string
-on error
-	return "Nothing playing"
-end try')
+if pgrep -qi music; then
+    # only gets song from Apple music app (10.15 Catalina +)
+    SONG=$(osascript -e 'try
+        tell application "Music" to name of current track as string
+    on error
+        return "Nothing playing"
+    end try')
 
-STATE_ICON=$(osascript -e 'try
-	tell application "Music"
-		set state to player state as string
-	end tell
-	if state = "playing" then
-		return "􀑪"
-	else
-		return "􀊅"
-	end if
-on error
-	return "Nothing playing"
-end try')
+    STATE_ICON=$(osascript -e 'try
+        tell application "Music"
+            set state to player state as string
+        end tell
+        if state = "playing" then
+            return "􀑪"
+        else
+            return "􀊅"
+        end if
+    on error
+        return "Nothing playing"
+    end try')
+else
+    SONG="Nothing playing"
+    STATE_ICON="Nothing playing"
+fi
 
 echo $(cat <<-EOF
 {

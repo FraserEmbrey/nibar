@@ -1,13 +1,15 @@
 export default {
   colors: {
-    fg: "#bcbcbc",
-    dim: "#ababab",
-    bg: "#1c1c1ccd",
-    red: "#ff8700",
-    accent: "#5fafaf"
+    fg:     "#BCBCBC",
+    dim:    "#ABABAB",
+    bg:     "#1C1C1CCD",
+    red:    "#F08E85",
+    yellow: "#F3D991",
+    blue:   "#80C7D5",
+    accent: "#80C7D7"
   },
-  fontSize: "11px",
+  fontSize:   "12px",
   lineHeight: "20px",
   fontWeight: "400",
-  fontFamily: "'SF Mono', Inter, 'm+ 1mn', monospace"
+  fontFamily: "'SF Compact Text', 'SF Mono', Inter, 'm+ 1mn', monospace"
 };
