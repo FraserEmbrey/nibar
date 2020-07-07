@@ -44,6 +44,7 @@ yabai -m signal --add event=space_changed \
 ## TODO
 
 - [x] add weather widget
+- [ ] change weather API [visual crossing?](https://www.visualcrossing.com/weather-api)
 - [ ] update music to work with iTunes or Spotify rather than just 'Music'
 - [ ] update styling to my preferences
 - [ ] add click control for space changes
