@@ -141,7 +141,7 @@ LOAD_AVERAGE=$(sysctl -n vm.loadavg | awk '{print $2}')
 WIFI_STATUS=$(ifconfig en0 | grep status | cut -c 10-)
 WIFI_SSID=$(networksetup -getairportnetwork en0 | cut -c 24-)
 
-DND=$(defaults -currentHost read com.apple.notificationcenterui doNotDisturb)
+# DND=$(defaults -currentHost read com.apple.notificationcenterui doNotDisturb)
 
 # Call weather with launchd or crontab to a local file then read. This means you can reliably get up to date weather for several uses from one api
 WEATHER=`cat ${HOME}/.local/share/weather`
@@ -151,31 +151,6 @@ WEATHER_ICON=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.icon')
 WEATHER_SUMM=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.summary')
 
 WEATHER_TEMP=$(echo $WEATHER | /usr/local/bin/jq -r '.currently.temperature')
-
-if pgrep -qi music; then
-    # only gets song from Apple music app (10.15 Catalina +)
-    SONG=$(osascript -e 'try
-        tell application "Music" to name of current track as string
-    on error
-        return "Nothing playing"
-    end try')
-
-    STATE_ICON=$(osascript -e 'try
-        tell application "Music"
-            set state to player state as string
-        end tell
-        if state = "playing" then
-            return "􀑪"
-        else
-            return "􀊅"
-        end if
-    on error
-        return "Nothing playing"
-    end try')
-else
-    SONG="Nothing playing"
-    STATE_ICON="Nothing playing"
-fi
 
 echo $(cat <<-EOF
 {
@@ -201,11 +176,6 @@ echo $(cat <<-EOF
 		"mbin": "$mbin",
 		"mbout": "$mbout"
 	},
-    "dnd": $DND,
-    "song": {
-        "song": "$SONG",
-        "stateicon": "$STATE_ICON"
-    },
     "weather": {
         "icon": "$WEATHER_ICON",
         "summary": "$WEATHER_SUMM",
