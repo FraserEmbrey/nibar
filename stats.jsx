@@ -10,19 +10,28 @@ import parse from "./lib/parse.jsx";
 import styles from "./lib/styles.jsx";
 
 const style = {
-  display: "grid",
-  padding: "0 12px",
-  gridAutoFlow: "column",
-  gridGap: "16px",
-  position: "fixed",
-  overflow: "hidden",
-  right: "0px",
-  top: "0px",
   color: styles.colors.dim,
   fontFamily: styles.fontFamily,
   fontSize: styles.fontSize,
   lineHeight: styles.lineHeight,
   fontWeight: styles.fontWeight
+}
+
+const date = {
+  width: "100vw",
+  display: "flex",
+  justifyContent: "center",
+}
+
+const stats = {
+  display: "grid",
+  padding: "0 12px",
+  gridAutoFlow: "column",
+  gridGap: "24px",
+  position: "fixed",
+  overflow: "hidden",
+  right: "0px",
+  top: "0px",
 };
 
 export const refreshFrequency = 10000;
@@ -41,11 +50,16 @@ export const render = ({ output }) => {
       // <Netstats output={data.netstats} />
   return (
     <div style={style}>
-      <Wifi output={data.wifi} />
-      <Cpu output={data.cpu} />
-      <Battery output={data.battery} />
-      <Weather output={data.weather} />
-      <DateTime output={data.datetime} />
+      <div style={date}>
+        <DateTime output={data.datetime} />
+      </div>
+      <div style={stats}>
+        <Wifi output={data.wifi} />
+        <Cpu output={data.cpu} />
+        <Battery output={data.battery} />
+        <Weather output={data.weather} />
+      </div>
+
     </div>
   );
 };

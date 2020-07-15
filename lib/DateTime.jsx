@@ -4,6 +4,7 @@ const render = ({ output }) => {
     <div>
       {output.date}
       &nbsp;
+      &nbsp;
       {output.time}
     </div>
   );
